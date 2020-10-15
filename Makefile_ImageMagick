@@ -161,6 +161,7 @@ LIBS:=$(CACHE_DIR)/lib/libjpeg.a \
 	$(CACHE_DIR)/lib/libheif.a
 
 $(TARGET_DIR)/bin/identify: $(IMAGE_MAGICK_SOURCE) $(LIBS)
+	yum -y install lcms2-devel && yum -y install lcms2 && yum -y install lcms2-utils
 	tar xf $<
 	cd ImageMa*
 	PKG_CONFIG_PATH=$(CACHE_DIR)/lib/pkgconfig \
@@ -171,6 +172,7 @@ $(TARGET_DIR)/bin/identify: $(IMAGE_MAGICK_SOURCE) $(LIBS)
 		--disable-shared \
 		--enable-static \
 		--with-heic=yes \
+		--with-lcms=yes \
 		--prefix=$(TARGET_DIR) \
 		--enable-delegate-build \
 		--without-modules \
